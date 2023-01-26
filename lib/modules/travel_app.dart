@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -14,14 +16,14 @@ import 'package:stack_trace/stack_trace.dart' as stack_trace;
 void Function(String?)? onSelectNotification = (id){};
 
 final _isAppReadyProvider = StateProvider.autoDispose<bool>((ref) {
-  return false;
+  return true;
 });
 
 class CheckIfOnboardingIsDone extends AutoRouteGuard {
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) async {
-    final sharedPrefs = SharedPrefs.instance;
-    final userSettings = sharedPrefs.getString("user_settings");
+    final sharedPrefs = await SharedPreferences.getInstance();
+    final userSettings = sharedPrefs.getString("onboarding");
     if (userSettings != null ) {
       resolver.next(true);
     } else {

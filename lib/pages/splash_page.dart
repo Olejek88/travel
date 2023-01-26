@@ -16,6 +16,6 @@ class SplashPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const SizedBox();
+    return Image.asset("assets/world.jpg");
   }
 }

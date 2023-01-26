@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../app_router.gr.dart';
 import '../../main_lib.dart';
 
@@ -49,7 +50,10 @@ class OnboardingSkip extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return GestureDetector(
-        onTap: () {
+        onTap: () async {
+            final sharedPrefs = await SharedPreferences.getInstance();
+            sharedPrefs.setString("onboarding", "completed");
+            context.router.replace(const MainRouter());
         },
         key: const Key("Skip"),
         child: HStack(mainAxisAlignment: MainAxisAlignment.end, children: [

@@ -14,6 +14,7 @@
 import 'package:auto_route/auto_route.dart' as _i9;
 import 'package:flutter/material.dart' as _i10;
 import 'package:travel/main_lib.dart' as _i1;
+import 'package:travel/modules/travel_app.dart' as _i11;
 import 'package:travel/pages/main/dashboard_page.dart' as _i5;
 import 'package:travel/pages/main/main_tabs_page.dart' as _i2;
 import 'package:travel/pages/main/profile_page.dart' as _i8;
@@ -23,8 +24,12 @@ import 'package:travel/pages/onboarding/onboarding_page.dart' as _i3;
 import 'package:travel/pages/search/global_search_page.dart' as _i4;
 
 class AppRouter extends _i9.RootStackRouter {
-  AppRouter([_i10.GlobalKey<_i10.NavigatorState>? navigatorKey])
-      : super(navigatorKey);
+  AppRouter({
+    _i10.GlobalKey<_i10.NavigatorState>? navigatorKey,
+    required this.checkIfOnboardingIsDone,
+  }) : super(navigatorKey);
+
+  final _i11.CheckIfOnboardingIsDone checkIfOnboardingIsDone;
 
   @override
   final Map<String, _i9.PageFactory> pagesMap = {
@@ -142,6 +147,7 @@ class AppRouter extends _i9.RootStackRouter {
         _i9.RouteConfig(
           MainRouter.name,
           path: '/',
+          guards: [checkIfOnboardingIsDone],
           children: [
             _i9.RouteConfig(
               DashboardSection.name,
