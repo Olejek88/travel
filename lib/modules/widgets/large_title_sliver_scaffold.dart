@@ -46,7 +46,7 @@ class LargeTitleSliverScaffold extends HookConsumerWidget {
             if (trailingActions != null) ...trailingActions!,
             if (showGlobalSearchButton)
               CustomAppbarSVGButton(
-                asset: "assets_core/icons/iconSearch.svg",
+                asset: "assets/icons/iconSearch.svg",
                 semanticLabel: context.i10n.travel_app,
                 horizontalPadding: !kIsWeb && Platform.isIOS ? 16 : 0,
                 onPressed: () {

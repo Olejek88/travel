@@ -31,4 +31,7 @@ class AppColors {
   static const hideEventRow = Color.fromRGBO(153, 153, 153, 1);
   static const deleteEventRow = Color.fromRGBO(241, 93, 48, 1);
   static const activeSwitchColor = Color.fromRGBO(50, 215, 75, 1);
+
+  static const primaryColor = Color(0xff26427A);
+  static const secondaryColor = Color(0xff976e18);
 }

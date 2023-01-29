@@ -8,7 +8,7 @@ class RatingsPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
 
     return TravelScaffold(
-        label: context.i10n.travel_app,
+        label: context.i10n.rating,
         showGlobalSearchButton: false,
         body: Padding(
             padding: const EdgeInsets.only(bottom: 5, top: 5, left: 20, right: 20),

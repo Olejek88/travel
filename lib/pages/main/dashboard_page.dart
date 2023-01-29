@@ -7,7 +7,7 @@ class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TravelScaffold(
-        label: context.i10n.travel_app,
+        label: context.i10n.dashboard,
         leading: null,
         key: const Key("Dashboard"),
         automaticallyImplyLeading: false,

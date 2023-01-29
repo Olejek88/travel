@@ -8,8 +8,8 @@ class TodosPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return LargeTitleSliverScaffold(
-      largeTitle: context.i10n.travel_app,
-      middleTitle: context.i10n.travel_app,
+      largeTitle: context.i10n.todo,
+      middleTitle: context.i10n.todo,
       key: const Key("Dates"),
       automaticallyImplyLeading: false,
       leading: CustomAppbarSVGButton(

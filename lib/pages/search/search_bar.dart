@@ -27,7 +27,7 @@ class SearchBar extends HookConsumerWidget {
           Padding(
             padding: const EdgeInsets.only(left: 5),
             child: SvgPictureExtension.localAsset(
-              "assets_core/icons/iconSearch.svg",
+              "assets/icons/iconSearch.svg",
               width: 18, height: 18,
               color: context.themeColors.searchIconColor,
             ),

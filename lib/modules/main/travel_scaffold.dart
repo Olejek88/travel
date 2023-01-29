@@ -38,7 +38,7 @@ class TravelScaffold extends StatelessWidget {
               title: label != null ? Text(label!, style: context.fontByStyle(ThemeTextStyle.headTitle)) : title,
               leading: showReminderButton
                   ? CustomAppbarSVGButton(
-                      asset: "assets_core/icons/iconReminder.svg",
+                      asset: "assets/icons/iconSearch.svg",
                       semanticLabel: context.i10n.travel_app,
                       isLeading: true,
                       onPressed: () {
@@ -49,7 +49,7 @@ class TravelScaffold extends StatelessWidget {
               trailingActions: showGlobalSearchButton
                   ? [
                       CustomAppbarSVGButton(
-                        asset: "assets_core/icons/iconSearch.svg",
+                        asset: "assets/icons/iconSearch.svg",
                         semanticLabel: context.i10n.travel_app,
                         horizontalPadding: 20,
                         onPressed: () {

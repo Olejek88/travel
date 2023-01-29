@@ -9,10 +9,9 @@ import 'dart:io' show Platform;
 abstract class MainTabsPageBottomNavKeys {
   static const String _prefix = "NavBottomBar";
   static const String dashboard = "${_prefix}Dashboard";
-  static const String dates = "${_prefix}Dates";
   static const String todos = "${_prefix}Todos";
-  static const String helpInfo = "${_prefix}HelpInfo";
-  static const String myArea = "${_prefix}MyArea";
+  static const String rating = "${_prefix}Rating";
+  static const String profile = "${_prefix}Profile";
 }
 
 class MainTabsPage extends ConsumerWidget {
@@ -49,38 +48,29 @@ class MainTabsPage extends ConsumerWidget {
       BottomNavigationBarItem(
           icon: Semantics(
               label: context.i10n.travel_app,
-              child: context.themeIcons.navigationCalendar),
+              child: context.themeIcons.navigationTodo),
           activeIcon: Semantics(
               label: context.i10n.travel_app,
-              child: context.themeIcons.navigationCalendarActive),
-          tooltip: MainTabsPageBottomNavKeys.dates,
-          label: platformLabel),
-      BottomNavigationBarItem(
-          icon: Semantics(
-              label: context.i10n.travel_app,
-              child: context.themeIcons.navigationChecklist),
-          activeIcon: Semantics(
-              label: context.i10n.travel_app,
-              child: context.themeIcons.navigationChecklistActive),
+              child: context.themeIcons.navigationTodoActive),
           tooltip: MainTabsPageBottomNavKeys.todos,
           label: platformLabel),
       BottomNavigationBarItem(
           icon: Semantics(
               label: context.i10n.travel_app,
-              child: context.themeIcons.navigationInfo),
+              child: context.themeIcons.navigationRating),
           activeIcon: Semantics(
               label: context.i10n.travel_app,
-              child: context.themeIcons.navigationInfoActive),
-          tooltip: MainTabsPageBottomNavKeys.helpInfo,
+              child: context.themeIcons.navigationRatingActive),
+          tooltip: MainTabsPageBottomNavKeys.rating,
           label: platformLabel),
       BottomNavigationBarItem(
           icon: Semantics(
               label: context.i10n.travel_app,
-              child: context.themeIcons.navigationMyArea),
+              child: context.themeIcons.navigationProfile),
           activeIcon: Semantics(
               label: context.i10n.travel_app,
-              child: context.themeIcons.navigationMyAreaActive),
-          tooltip: MainTabsPageBottomNavKeys.myArea,
+              child: context.themeIcons.navigationProfileActive),
+          tooltip: MainTabsPageBottomNavKeys.profile,
           label: platformLabel),
     ];
 
