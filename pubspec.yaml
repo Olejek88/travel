@@ -39,20 +39,21 @@ dependencies:
   flutter_platform_widgets:
   flutter_svg:
   flutter_html:
-  auto_route: ^4.0.1
+  auto_route:
   card_swiper:
   flutter_cupertino_datetime_picker:
   google_fonts:
   cupertino_icons: # Mandatory for iOS platform widgets
   flutter_share:
-  url_launcher:
-  shared_preferences:
+  url_launcher: ^6.1.8
+  shared_preferences: ^2.0.17
   flutter_local_notifications:
   flutter_native_timezone:
   cached_network_image:
   flutter_slidable:
   modal_bottom_sheet:
   diffutil_dart:
+  retrofit: '>=3.0.0 <4.0.0'
 
 dev_dependencies:
   flutter_lints:
@@ -70,7 +71,10 @@ dev_dependencies:
 
   build_runner:
   bdd_widget_test:
-  freezed: ^2.0.4
+  freezed:
+  retrofit_generator: '>=4.2.0 <5.0.0'
+  json_serializable:
+  code_builder:
   path_provider:
 
 flutter:

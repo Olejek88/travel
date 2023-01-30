@@ -16,6 +16,15 @@ class SplashPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Image.asset("assets/world.jpg");
+    return Container(
+      color: AppColors.primaryColor,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+              Image.asset("assets/launcher_icon.jpg", width: 100, height: 100)
+        ],
+      ),
+    );
   }
 }

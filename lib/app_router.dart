@@ -1,3 +1,4 @@
+import 'package:auto_route/empty_router_widgets.dart';
 import 'package:travel/pages/main/profile_page.dart';
 import 'package:travel/pages/main/ratings_page.dart';
 import 'package:travel/pages/main/todos_page.dart';

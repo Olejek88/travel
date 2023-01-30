@@ -10,6 +10,7 @@ import 'package:travel/providers/locale_provider.dart';
 
 import '../../main_lib.dart';
 import '../app_router.gr.dart';
+import '../network/requests.dart';
 import '../pages/splash_page.dart';
 import 'package:stack_trace/stack_trace.dart' as stack_trace;
 
@@ -46,6 +47,10 @@ class TravelApp extends HookConsumerWidget {
     final isAppReady = ref.watch(_isAppReadyProvider);
     var brightness = ref.watch(appBrightnessProvider);
     var isDarkMode = SchedulerBinding.instance.window.platformBrightness == Brightness.dark;
+    final dio = Dio(); // Provide a dio instance
+    dio.options.headers["Demo-Header"] = "demo header"; // config your dio headers globally
+    final client = RestClient(dio);
+
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
