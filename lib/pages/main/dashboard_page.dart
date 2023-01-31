@@ -13,6 +13,10 @@ class DashboardPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final continents = ref.watch(continentsProvider);
     debugPrint("continents=${continents}");
+    final countries = ref.watch(countriesProvider);
+    debugPrint("countries=${countries}");
+    final lands = ref.watch(landsProvider);
+    debugPrint("lands=${lands}");
     return TravelScaffold(
         label: context.i10n.dashboard,
         leading: null,
@@ -21,7 +25,7 @@ class DashboardPage extends HookConsumerWidget {
         showGlobalSearchButton: true,
         body: CustomScrollView(
           slivers: [
-            continents.when(
+            lands.when(
                 data: (data) => _sliverList(ref, context, data),
                 loading: () =>
                     SliverList(
@@ -40,18 +44,19 @@ class DashboardPage extends HookConsumerWidget {
         ));
   }
 
-  Widget _sliverList(WidgetRef ref, BuildContext context, List<Continent>? continents) {
-    if (continents == null || continents.isEmpty) return const SizedBox();
+  Widget _sliverList(WidgetRef ref, BuildContext context, List<Land>? lands) {
+    if (lands == null || lands.isEmpty) return const SizedBox();
     return
-        ItemAnimatedSliverList<Continent>(
-            items: continents,
-            builder: (context, continent) {
+        ItemAnimatedSliverList<Land>(
+            items: lands,
+            builder: (context, land) {
               return VStack(
                 children: [
                   ListRow(
-                      title: continent.title,
-                      id: continent.uuid,
-                      subtitle: "",
+                      title: land.title,
+                      id: land.uuid,
+                      subtitle: land.country.title,
+                      imageUrl: land.image,
                       isArrowHidden: false,
                       onDismissed: () {
                       },

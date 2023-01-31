@@ -14,9 +14,11 @@ import '../network/requests.dart';
 import '../pages/splash_page.dart';
 import 'package:stack_trace/stack_trace.dart' as stack_trace;
 
+const baseUrl = "http://api.travel/storage/images/";
 void Function(String?)? onSelectNotification = (id){};
 
 final _isAppReadyProvider = StateProvider.autoDispose<bool>((ref) {
+
   return true;
 });
 

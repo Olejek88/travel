@@ -10,8 +10,8 @@ _$_UserCountryProgress _$$_UserCountryProgressFromJson(
         Map<String, dynamic> json) =>
     _$_UserCountryProgress(
       uuid: json['uuid'] as String,
-      country: json['country'],
-      user: json['user'],
+      country: Country.fromJson(json['country'] as Map<String, dynamic>),
+      user: User.fromJson(json['user'] as Map<String, dynamic>),
       progress: (json['progress'] as num).toDouble(),
       createdAt: json['createdAt'] as String,
       changedAt: json['changedAt'] as String,

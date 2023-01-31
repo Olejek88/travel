@@ -11,7 +11,7 @@ _$_UserContinentProgress _$$_UserContinentProgressFromJson(
     _$_UserContinentProgress(
       uuid: json['uuid'] as String,
       continent: Continent.fromJson(json['continent'] as Map<String, dynamic>),
-      user: json['user'],
+      user: User.fromJson(json['user'] as Map<String, dynamic>),
       progress: (json['progress'] as num).toDouble(),
       createdAt: json['createdAt'] as String,
       changedAt: json['changedAt'] as String,

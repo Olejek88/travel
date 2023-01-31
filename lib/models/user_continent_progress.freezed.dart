@@ -49,6 +49,7 @@ abstract class $UserContinentProgressCopyWith<$Res> {
       String changedAt});
 
   $ContinentCopyWith<$Res> get continent;
+  $UserCopyWith<$Res> get user;
 }
 
 /// @nodoc
@@ -107,6 +108,14 @@ class _$UserContinentProgressCopyWithImpl<$Res,
       return _then(_value.copyWith(continent: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserCopyWith<$Res> get user {
+    return $UserCopyWith<$Res>(_value.user, (value) {
+      return _then(_value.copyWith(user: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -127,6 +136,8 @@ abstract class _$$_UserContinentProgressCopyWith<$Res>
 
   @override
   $ContinentCopyWith<$Res> get continent;
+  @override
+  $UserCopyWith<$Res> get user;
 }
 
 /// @nodoc
@@ -216,7 +227,7 @@ class _$_UserContinentProgress implements _UserContinentProgress {
             (identical(other.uuid, uuid) || other.uuid == uuid) &&
             (identical(other.continent, continent) ||
                 other.continent == continent) &&
-            const DeepCollectionEquality().equals(other.user, user) &&
+            (identical(other.user, user) || other.user == user) &&
             (identical(other.progress, progress) ||
                 other.progress == progress) &&
             (identical(other.createdAt, createdAt) ||
@@ -228,13 +239,7 @@ class _$_UserContinentProgress implements _UserContinentProgress {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      uuid,
-      continent,
-      const DeepCollectionEquality().hash(user),
-      progress,
-      createdAt,
-      changedAt);
+      runtimeType, uuid, continent, user, progress, createdAt, changedAt);
 
   @JsonKey(ignore: true)
   @override

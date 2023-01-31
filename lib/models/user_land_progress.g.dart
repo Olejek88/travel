@@ -9,8 +9,8 @@ part of 'user_land_progress.dart';
 _$_UserLandProgress _$$_UserLandProgressFromJson(Map<String, dynamic> json) =>
     _$_UserLandProgress(
       uuid: json['uuid'] as String,
-      land: json['land'],
-      user: json['user'],
+      land: Land.fromJson(json['land'] as Map<String, dynamic>),
+      user: User.fromJson(json['user'] as Map<String, dynamic>),
       progress: (json['progress'] as num).toDouble(),
       createdAt: json['createdAt'] as String,
       changedAt: json['changedAt'] as String,

@@ -46,6 +46,9 @@ abstract class $UserCountryProgressCopyWith<$Res> {
       double progress,
       String createdAt,
       String changedAt});
+
+  $CountryCopyWith<$Res> get country;
+  $UserCopyWith<$Res> get user;
 }
 
 /// @nodoc
@@ -95,6 +98,22 @@ class _$UserCountryProgressCopyWithImpl<$Res, $Val extends UserCountryProgress>
               as String,
     ) as $Val);
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CountryCopyWith<$Res> get country {
+    return $CountryCopyWith<$Res>(_value.country, (value) {
+      return _then(_value.copyWith(country: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserCopyWith<$Res> get user {
+    return $UserCopyWith<$Res>(_value.user, (value) {
+      return _then(_value.copyWith(user: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -112,6 +131,11 @@ abstract class _$$_UserCountryProgressCopyWith<$Res>
       double progress,
       String createdAt,
       String changedAt});
+
+  @override
+  $CountryCopyWith<$Res> get country;
+  @override
+  $UserCopyWith<$Res> get user;
 }
 
 /// @nodoc
@@ -199,8 +223,8 @@ class _$_UserCountryProgress implements _UserCountryProgress {
         (other.runtimeType == runtimeType &&
             other is _$_UserCountryProgress &&
             (identical(other.uuid, uuid) || other.uuid == uuid) &&
-            const DeepCollectionEquality().equals(other.country, country) &&
-            const DeepCollectionEquality().equals(other.user, user) &&
+            (identical(other.country, country) || other.country == country) &&
+            (identical(other.user, user) || other.user == user) &&
             (identical(other.progress, progress) ||
                 other.progress == progress) &&
             (identical(other.createdAt, createdAt) ||
@@ -212,13 +236,7 @@ class _$_UserCountryProgress implements _UserCountryProgress {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      uuid,
-      const DeepCollectionEquality().hash(country),
-      const DeepCollectionEquality().hash(user),
-      progress,
-      createdAt,
-      changedAt);
+      runtimeType, uuid, country, user, progress, createdAt, changedAt);
 
   @JsonKey(ignore: true)
   @override

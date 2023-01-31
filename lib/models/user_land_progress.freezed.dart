@@ -46,6 +46,9 @@ abstract class $UserLandProgressCopyWith<$Res> {
       double progress,
       String createdAt,
       String changedAt});
+
+  $LandCopyWith<$Res> get land;
+  $UserCopyWith<$Res> get user;
 }
 
 /// @nodoc
@@ -95,6 +98,22 @@ class _$UserLandProgressCopyWithImpl<$Res, $Val extends UserLandProgress>
               as String,
     ) as $Val);
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $LandCopyWith<$Res> get land {
+    return $LandCopyWith<$Res>(_value.land, (value) {
+      return _then(_value.copyWith(land: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserCopyWith<$Res> get user {
+    return $UserCopyWith<$Res>(_value.user, (value) {
+      return _then(_value.copyWith(user: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -112,6 +131,11 @@ abstract class _$$_UserLandProgressCopyWith<$Res>
       double progress,
       String createdAt,
       String changedAt});
+
+  @override
+  $LandCopyWith<$Res> get land;
+  @override
+  $UserCopyWith<$Res> get user;
 }
 
 /// @nodoc
@@ -199,8 +223,8 @@ class _$_UserLandProgress implements _UserLandProgress {
         (other.runtimeType == runtimeType &&
             other is _$_UserLandProgress &&
             (identical(other.uuid, uuid) || other.uuid == uuid) &&
-            const DeepCollectionEquality().equals(other.land, land) &&
-            const DeepCollectionEquality().equals(other.user, user) &&
+            (identical(other.land, land) || other.land == land) &&
+            (identical(other.user, user) || other.user == user) &&
             (identical(other.progress, progress) ||
                 other.progress == progress) &&
             (identical(other.createdAt, createdAt) ||
@@ -212,13 +236,7 @@ class _$_UserLandProgress implements _UserLandProgress {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      uuid,
-      const DeepCollectionEquality().hash(land),
-      const DeepCollectionEquality().hash(user),
-      progress,
-      createdAt,
-      changedAt);
+      runtimeType, uuid, land, user, progress, createdAt, changedAt);
 
   @JsonKey(ignore: true)
   @override

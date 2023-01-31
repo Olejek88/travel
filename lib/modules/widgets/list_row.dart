@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:travel/main_lib.dart';
+import 'package:travel/modules/travel_app.dart';
 
 import 'dynamic_text_highlight.dart';
 
@@ -10,6 +12,7 @@ class ListRow extends StatelessWidget {
       this.id,
       required this.title,
       this.subtitle,
+      this.imageUrl,
       this.source,
       this.barColor,
       this.isBorderHidden = true,
@@ -27,6 +30,7 @@ class ListRow extends StatelessWidget {
 
   final String? id;
   final String title;
+  final String? imageUrl;
   final String? subtitle;
   final String? source;
   final List<String>? highlights;
@@ -50,12 +54,12 @@ class ListRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return dismissible(
-        context,
-        GestureDetector(
-            onTap: onClicked,
-            child: content(context),
-          ),
-        );
+      context,
+      GestureDetector(
+        onTap: onClicked,
+        child: content(context),
+      ),
+    );
   }
 
   Widget dismissible(BuildContext context, Widget content) {
@@ -110,9 +114,12 @@ class ListRow extends StatelessWidget {
       hidden: hidden,
       child: Flexible(
         child: HStack(
-          // spacing: 8,
+          spacing: 8,
           padding: const EdgeInsets.only(left: 16, top: 8, bottom: 8),
           children: [
+            if (imageUrl != null)
+              ClipOval(
+                  child: CachedNetworkImage(imageUrl: "$baseUrl/$imageUrl", height:35, width:35, fit: BoxFit.cover)),
             Flexible(child: textContent(context)),
             if (!isArrowHidden)
               Padding(padding: const EdgeInsets.only(left: 8, right: 16), child: context.themeIcons.listArrowRight)
