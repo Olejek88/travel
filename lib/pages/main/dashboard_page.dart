@@ -12,11 +12,8 @@ class DashboardPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final continents = ref.watch(continentsProvider);
-    debugPrint("continents=${continents}");
     final countries = ref.watch(countriesProvider);
-    debugPrint("countries=${countries}");
     final lands = ref.watch(landsProvider);
-    debugPrint("lands=${lands}");
     return TravelScaffold(
         label: context.i10n.dashboard,
         leading: null,
@@ -46,8 +43,7 @@ class DashboardPage extends HookConsumerWidget {
 
   Widget _sliverList(WidgetRef ref, BuildContext context, List<Land>? lands) {
     if (lands == null || lands.isEmpty) return const SizedBox();
-    return
-        ItemAnimatedSliverList<Land>(
+    return  ItemAnimatedSliverList<Land>(
             items: lands,
             builder: (context, land) {
               return VStack(

@@ -17,8 +17,8 @@ class ListRow extends StatelessWidget {
       this.barColor,
       this.isBorderHidden = true,
       this.isArrowHidden = false,
-      this.hidden = false,
       this.prefixIcon,
+      this.value,
       this.isChecked,
       this.hideOrRemove,
       this.onClicked,
@@ -33,11 +33,11 @@ class ListRow extends StatelessWidget {
   final String? imageUrl;
   final String? subtitle;
   final String? source;
+  final String? value;
   final List<String>? highlights;
   final Color? barColor;
   final bool? isBorderHidden;
   final bool isArrowHidden;
-  final bool? hidden;
   final bool? isChecked;
 
   /// Parameter [hideOrRemove] specifies whether the element is removable or hidden
@@ -78,7 +78,7 @@ class ListRow extends StatelessWidget {
         Slidable(
           // Specify a key if the Slidable is dismissible.
           key: ValueKey(id),
-          enabled: hidden != true && hideOrRemove != null,
+          enabled: hideOrRemove != null,
           groupTag: '0',
           closeOnScroll: true,
           // The end action pane is the one at the right or the bottom side.
@@ -111,7 +111,6 @@ class ListRow extends StatelessWidget {
     return PlainListRow(
       minHeight: 54,
       barColor: barColor,
-      hidden: hidden,
       child: Flexible(
         child: HStack(
           spacing: 8,
@@ -119,14 +118,14 @@ class ListRow extends StatelessWidget {
           children: [
             if (imageUrl != null)
               ClipOval(
-                  child: CachedNetworkImage(imageUrl: "$baseUrl/$imageUrl", height:35, width:35, fit: BoxFit.cover)),
+                  child: CachedNetworkImage(imageUrl: "$baseUrl/$imageUrl", height: 35, width: 35, fit: BoxFit.cover)),
             Flexible(child: textContent(context)),
             if (!isArrowHidden)
               Padding(padding: const EdgeInsets.only(left: 8, right: 16), child: context.themeIcons.listArrowRight)
-            else if (isChecked != null && hidden != true)
+            else if (isChecked != null)
               checkbox(context)
-            else if (hidden == true)
-              restoreVisibilityButton(context)
+            else if (value != null)
+                Text(value ?? "", style: context.fontByStyle(ThemeTextStyle.body))
             else
               const SizedBox(width: 16),
           ],
@@ -181,49 +180,46 @@ class ListRow extends StatelessWidget {
   }
 
   Widget textContent(BuildContext context) {
-    return Opacity(
-      opacity: hidden == true ? 0.5 : 1,
-      child: VStack(
-          spacing: 4,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            HStack(
-              spacing: 12,
-              children: [
-                ...(prefixIcon != null ? [prefixIcon!] : []),
-                Flexible(
-                    child: DynamicTextHighlighting(
-                  text: title,
-                  highlights: highlights ?? [],
-                  color: Colors.yellow,
-                  maxLines: 3,
-                  style: context.fontByStyle(ThemeTextStyle.body1).copyWith(color: context.themeColors.mainText),
-                  caseSensitive: false,
-                  overflow: TextOverflow.ellipsis,
-                ))
-              ],
-            ),
-            ...(subtitle != null && subtitle!.isNotEmpty
-                ? [
-                    DynamicTextHighlighting(
-                      text: subtitle!,
-                      highlights: highlights ?? [],
-                      color: Colors.yellow,
-                      style: context.fontByStyle(ThemeTextStyle.body2),
-                      caseSensitive: false,
-                      overflow: TextOverflow.ellipsis,
-                    )
-                  ]
-                : []),
-            ...(source != null && source!.isNotEmpty
-                ? [
-                    Text(source!,
-                        maxLines: 2, overflow: TextOverflow.ellipsis, style: context.fontByStyle(ThemeTextStyle.body2))
-                  ]
-                : [])
-          ]),
-    );
+    return VStack(
+        spacing: 4,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          HStack(
+            spacing: 12,
+            children: [
+              ...(prefixIcon != null ? [prefixIcon!] : []),
+              Flexible(
+                  child: DynamicTextHighlighting(
+                text: title,
+                highlights: highlights ?? [],
+                color: Colors.yellow,
+                maxLines: 3,
+                style: context.fontByStyle(ThemeTextStyle.body1).copyWith(color: context.themeColors.mainText),
+                caseSensitive: false,
+                overflow: TextOverflow.ellipsis,
+              ))
+            ],
+          ),
+          ...(subtitle != null && subtitle!.isNotEmpty
+              ? [
+                  DynamicTextHighlighting(
+                    text: subtitle!,
+                    highlights: highlights ?? [],
+                    color: Colors.yellow,
+                    style: context.fontByStyle(ThemeTextStyle.body2),
+                    caseSensitive: false,
+                    overflow: TextOverflow.ellipsis,
+                  )
+                ]
+              : []),
+          ...(source != null && source!.isNotEmpty
+              ? [
+                  Text(source!,
+                      maxLines: 2, overflow: TextOverflow.ellipsis, style: context.fontByStyle(ThemeTextStyle.body2))
+                ]
+              : [])
+        ]);
   }
 }
 
