@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart' show LocationData;
@@ -97,6 +98,15 @@ extension FlutterMapStateExtension on FlutterMapState {
 
     controller.forward();
   }
+}
+
+LatLngBounds? initialMapBounds(List<TodoLand>? lands, LatLng? userPosition) {
+  final landLocations = lands?.map((land) => LatLng(land.latitude, land.longitude)).whereNotNull() ?? [];
+  final userPositionArray = [userPosition].whereNotNull();
+  final locations = [...landLocations, ...userPositionArray];
+  if (locations.isEmpty) return null;
+  final bounds = LatLngBounds.fromPoints(locations);
+  return bounds;
 }
 
 extension LocationDataExtension on LocationData {

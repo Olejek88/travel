@@ -6,7 +6,8 @@ import '../../../main_lib.dart';
 import '../map_widget.dart';
 
 class MapButtonsLayer extends ConsumerWidget {
-  const MapButtonsLayer({super.key});
+  final MapController controller;
+  const MapButtonsLayer({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -21,7 +22,7 @@ class MapButtonsLayer extends ConsumerWidget {
             const Spacer(),
             if (mapMeta.todoLands?.isNotEmpty ?? false)
               FloatingActionButton(
-                heroTag: "treesButton",
+                heroTag: "landsButton",
                 foregroundColor: Colors.black,
                 backgroundColor: mapMeta.showLandState.value
                     ? AppColors.accentText.withOpacity(0.6)
@@ -33,20 +34,32 @@ class MapButtonsLayer extends ConsumerWidget {
                   mapCenterBounds(context, true);
                 },
               ),
-            if (mapMeta.todoLands?.isNotEmpty ?? false)
-              FloatingActionButton(
-                heroTag: "transferButton",
-                foregroundColor: Colors.black,
-                backgroundColor: mapMeta.showCountriesState.value
-                    ? AppColors.accentText.withOpacity(0.6)
-                    : Colors.white.withOpacity(0.6),
-                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12.0))),
-                child: context.themeIcons.navigationProfile,
-                onPressed: () async {
-                  mapMeta.showCountriesState.value = !mapMeta.showCountriesState.value;
-                  mapCenterBounds(context, true);
-                },
-              ),
+            FloatingActionButton(
+              heroTag: "plusButton",
+              foregroundColor: Colors.black,
+              backgroundColor: mapMeta.showLandState.value
+                  ? AppColors.accentText.withOpacity(0.6)
+                  : Colors.white.withOpacity(0.6),
+              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12.0))),
+              child: const Icon(Icons.add),
+              onPressed: () async {
+                var currentZoom = controller.zoom + 1;
+                controller.move(controller.center, currentZoom);
+              },
+            ),
+            FloatingActionButton(
+              heroTag: "minusButton",
+              foregroundColor: Colors.black,
+              backgroundColor: mapMeta.showLandState.value
+                  ? AppColors.accentText.withOpacity(0.6)
+                  : Colors.white.withOpacity(0.6),
+              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(12.0))),
+              child: const Icon(Icons.remove),
+              onPressed: () async {
+                var currentZoom = controller.zoom - 1;
+                controller.move(controller.center, currentZoom);
+              },
+            ),
           ],
         )
       ],

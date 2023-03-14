@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:travel/providers/locale_provider.dart';
@@ -15,19 +16,14 @@ import '../pages/splash_page.dart';
 import 'package:stack_trace/stack_trace.dart' as stack_trace;
 
 const baseUrl = "http://api.travel/storage/images/";
-void Function(String?)? onSelectNotification = (id){};
-
-final _isAppReadyProvider = StateProvider.autoDispose<bool>((ref) {
-
-  return true;
-});
+void Function(String?)? onSelectNotification = (id) {};
 
 class CheckIfOnboardingIsDone extends AutoRouteGuard {
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) async {
     final sharedPrefs = await SharedPreferences.getInstance();
     final userSettings = sharedPrefs.getString("onboarding");
-    if (userSettings != null ) {
+    if (userSettings != null) {
       resolver.next(true);
     } else {
       router.push(const OnboardingRoute());
@@ -35,8 +31,12 @@ class CheckIfOnboardingIsDone extends AutoRouteGuard {
   }
 }
 
-void initSharedPrefs() async{
+void initSharedPrefs() async {
   await SharedPrefs.init();
+}
+
+void loadDotEnv() async {
+  await dotenv.load(fileName: ".env");
 }
 
 class TravelApp extends HookConsumerWidget {
@@ -46,7 +46,6 @@ class TravelApp extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final isAppReady = ref.watch(_isAppReadyProvider);
     var brightness = ref.watch(appBrightnessProvider);
     var isDarkMode = SchedulerBinding.instance.window.platformBrightness == Brightness.dark;
     final dio = Dio(); // Provide a dio instance
@@ -61,16 +60,15 @@ class TravelApp extends HookConsumerWidget {
       if (stack is stack_trace.Chain) return stack.toTrace().vmTrace;
       return stack;
     };
-    if (isAppReady) {
-      return _fade(brightness == Brightness.light, buildMain(context, ref, brightness), SplashPage(brightness: isDarkMode ? Brightness.dark : Brightness.light));
-    } else {
-      initSharedPrefs();
-      return SplashPage(brightness: isDarkMode ? Brightness.dark : Brightness.light );
-    }
+    //initSharedPrefs();
+    loadDotEnv();
+    return _fade(brightness == Brightness.light, buildMain(context, ref, brightness),
+        SplashPage(brightness: isDarkMode ? Brightness.dark : Brightness.light));
   }
 
   Widget buildMain(BuildContext context, WidgetRef ref, Brightness brightness) {
-    return CommonPlatformRouterApp(router: _appRouter,
+    return CommonPlatformRouterApp(
+      router: _appRouter,
       locale: ref.watch(currentLocaleProvider.state).state,
       localizationsDelegates: const [AppLocalizations.delegate],
       supportedLocales: AppLocalizations.supportedLocales,
@@ -115,6 +113,7 @@ class TravelApp extends HookConsumerWidget {
 
 class SharedPrefs {
   static late final SharedPreferences instance;
+
   static Future<SharedPreferences> init() async {
     return instance = await SharedPreferences.getInstance();
   }

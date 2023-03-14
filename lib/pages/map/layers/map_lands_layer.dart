@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong2/latlong.dart';
 
@@ -12,7 +13,6 @@ class MapLandsLayer extends ConsumerWidget {
     final mapMeta = MapWidget.of(context)!;
     final lands = mapMeta.todoLands;
     if (lands == null || !mapMeta.showLandState.value) return const SizedBox();
-
     final treeMarkers = lands.map((land) => Marker(
               width: 40,
               height: 40,
@@ -20,7 +20,7 @@ class MapLandsLayer extends ConsumerWidget {
               rotate: true,
               anchorPos: AnchorPos.align(AnchorAlign.top),
               rotateOrigin: const Offset(0, 20),
-              builder: (context) => context.themeIcons.navigationTodo,
+              builder: (context) => const Icon(Icons.location_pin, color: AppColors.primaryText),
             ))
         .toList(growable: false);
 

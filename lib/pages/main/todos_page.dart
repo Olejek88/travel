@@ -14,47 +14,46 @@ class TodosPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final lands = ref.watch(landsProvider);
+    final todoLands = ref.watch(todoLandsProvider);
     return TravelScaffold(
       label: context.i10n.todo,
       leading: null,
       key: const Key("ToDo"),
       automaticallyImplyLeading: false,
       body: VStack(children: [
-        SearchAddressField(
-            name: "address",
-            iconName: "icMap",
-            onSubmitted: (place) {
-              // place.placeName = Gisela-Reissenberger-Platz 5, 12683 Berlin, Germany
-              // place.text = Gisela-Reissenberger-Platz
-              // layer.text = Germany/Berlin/Biesdorf/12683
-              place.placeName;
-              place.context?.forEach((layer) {
-                debugPrint("[${layer.id}] = ${place.placeName} [${place.text}] [${layer.text}]");
-                if (layer.id != null) {
-                  if (layer.id!.contains("place")) {
-                  }
-                  if (layer.id!.contains("country")) {
-                  }
-                  if (layer.id!.contains("postcode")) {
-                  }
-                }
-              });
-            }),
-        MapWidget(hideButtons: false),
-        lands.when(
-          data: (data) => _sliverList(ref, context, data),
-          loading: () =>
-              SliverList(
+        Expanded(
+          child: Stack(children: [
+            MapWidget(hideButtons: false, lands: todoLands.value),
+            SearchAddressField(
+                name: "address",
+                iconName: "icMap",
+                onSubmitted: (place) {
+                  place.placeName;
+                  place.context?.forEach((layer) {
+                    debugPrint("[${layer.id}] = ${place.placeName} [${place.text}] [${layer.text}]");
+                    if (layer.id != null) {
+                      if (layer.id!.contains("place")) {}
+                      if (layer.id!.contains("country")) {}
+                      if (layer.id!.contains("postcode")) {}
+                    }
+                  });
+                }),
+          ]),
+        ),
+        SizedBox(
+          height: 200,
+          child: CustomScrollView(
+            slivers: [lands.when(
+              data: (data) => _sliverList(ref, context, data),
+              loading: () => SliverList(
                   delegate: SliverChildListDelegate([
                     const Center(
                       child: CircularProgressIndicator(),
                     ),
                   ])),
-          error: (error, e) =>
-              SliverList(
-                  delegate: SliverChildListDelegate([
-                    Text(error.toString())
-                  ])),
+              error: (error, e) => SliverList(delegate: SliverChildListDelegate([Text(error.toString())])),
+            )],
+          ),
         ),
       ]),
     );
@@ -62,7 +61,7 @@ class TodosPage extends HookConsumerWidget {
 
   Widget _sliverList(WidgetRef ref, BuildContext context, List<Land>? lands) {
     if (lands == null || lands.isEmpty) return const SizedBox();
-    return  ItemAnimatedSliverList<Land>(
+    return ItemAnimatedSliverList<Land>(
         items: lands,
         builder: (context, land) {
           return VStack(
@@ -73,13 +72,10 @@ class TodosPage extends HookConsumerWidget {
                   subtitle: land.country.title,
                   imageUrl: land.image,
                   isArrowHidden: false,
-                  onDismissed: () {
-                  },
-                  onClicked: () {
-                  }),
+                  onDismissed: () {},
+                  onClicked: () {}),
             ],
           );
-        }
-    );
+        });
   }
 }

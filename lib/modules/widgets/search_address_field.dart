@@ -60,7 +60,7 @@ class SearchAddressField extends HookConsumerWidget {
           focusNode: searchFieldTextFocus,
           onTap: () {
           },
-          leadingIcon: const Icon(Icons.ice_skating),
+          leadingIcon: const Icon(Icons.map_rounded),
           autofocus: false),
       PlacesResultList(onPlaceSelected: (place) {
         ref.read(placePredictionsProvider.notifier).state = Predictions.empty();
@@ -96,7 +96,7 @@ class PlacesResultList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final placePredictionFeatures = ref.watch(placePredictionsProvider.state).state?.features ?? [];
+    final placePredictionFeatures = ref.watch(placePredictionsProvider.state).state?.features?.take(5).toList() ?? [];
     return ListView.separated(
       separatorBuilder: (cx, _) => const Divider(),
       itemCount: placePredictionFeatures.length,
@@ -107,6 +107,8 @@ class PlacesResultList extends ConsumerWidget {
         return ListTile(
           title: Text(singlePlace.text!, style: context.fontByStyle(ThemeTextStyle.defaultText).copyWith(fontSize: 16)),
           subtitle: Text(singlePlace.placeName!, style: context.fontByStyle(ThemeTextStyle.body3)),
+          dense:true,
+          visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
           onTap: () => onPlaceSelected(singlePlace),
         );
       },

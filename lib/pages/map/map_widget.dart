@@ -2,6 +2,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import '../../main_lib.dart';
+import '../../shared/extensions/model_extensions.dart';
 import 'layers/map_buttons_layer.dart';
 import 'layers/map_initial_bounds_by_user_position_layer.dart';
 import 'layers/map_lands_layer.dart';
@@ -18,17 +19,22 @@ class MapWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final initialBounds = initialMapBounds(lands, null);
     final showLandState = useState(true);
     final showCountryState = useState(true);
     final selectedLandState = useState<Land?>(null);
     return LayoutBuilder(builder: (context, constraints) {
       final widgetSize = Size(constraints.maxWidth, constraints.maxHeight);
+      final centerZoom = initialBounds?.getBoundsCenterZoom(
+        widgetSize,
+        const FitBoundsOptions(padding: EdgeInsets.symmetric(horizontal: 50, vertical: 150), inside: false),
+      );
       final MapOptions mapOptions = MapOptions(
-        center: LatLng(52.50347423777872, 13.272858667171855),
+        center: centerZoom?.center ?? LatLng(52.50347423777872, 13.272858667171855),
+        zoom: centerZoom?.zoom ?? 16,
         rotation: 0,
         minZoom: 2,
-        maxZoom: 22,
-        zoom: 16,
+        maxZoom: 22
       );
 
       return MapWidgetInheritedWidget(
@@ -42,14 +48,14 @@ class MapWidget extends HookConsumerWidget {
           mapController: controller,
           options: mapOptions,
           nonRotatedChildren: [
-            if (!hideButtons) const MapButtonsLayer(),
+            if (!hideButtons) MapButtonsLayer(controller: controller),
           ],
           children: [
             // Handle initial user position
             if (lands?.isEmpty ?? true && (countries?.isEmpty ?? true)) const MapInitialUserPositionLayer(),
             const MapTilesLayer(),
             const MapLandsLayer(),
-            const MapUserPositionMarker(),
+            //const MapUserPositionMarker(),
           ],
         ),
       );
